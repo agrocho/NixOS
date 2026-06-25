@@ -16,9 +16,10 @@
 			# Toaster, my desktop config.
 			ARG-Toaster = lib.nixosSystem {
 				system = "x86_64-linux";
-				modules = [ 
+				modules = [
 					./hosts/Toaster/configuration.nix
- 					./modules/ollama.nix
+					./modules/common.nix
+					./modules/ollama.nix
 					./modules/pkgs.nix
 					./modules/syncthing.nix
 					./modules/gaming.nix
@@ -29,9 +30,11 @@
 				system = "x86_64-linux";
 				modules = [
 					./hosts/Thunkpad/configuration.nix
+					./modules/common.nix
 					./modules/ollama.nix
 					./modules/pkgs.nix
 					./modules/syncthing.nix
+					./modules/gaming.nix
 				];
 			};
 		};
