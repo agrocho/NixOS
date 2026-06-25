@@ -31,6 +31,15 @@ apply_config() {
     echo ""
     echo -e "${GREEN}Done!${RESET}"
 }
+test_config() {
+    local host="$1"
+    echo ""
+    echo -e "${BOLD}Testing configuration for ${CYAN}${host}${RESET} (no bootloader changes)..."
+    echo ""
+    sudo nixos-rebuild test --flake ".#${host}"
+    echo ""
+    echo -e "${GREEN}Done!${RESET}"
+}
 
 run_alejandra() {
     echo ""
@@ -53,6 +62,8 @@ while true; do
     echo -e "  ${BOLD}Apply a NixOS configuration:${RESET}"
     echo "    1) ARG-Toaster"
     echo "    2) ARG-Thunkpad"
+    echo "    3) ARG-Toaster - Test Only"
+    echo "    4) ARG-Thunkpad - Test Only"
     echo ""
     echo -e "  ${BOLD}Maintenance:${RESET}"
     echo "    3) Format .nix files with alejandra"
@@ -64,7 +75,9 @@ while true; do
     case "$choice" in
         1) apply_config "ARG-Toaster" ;;
         2) apply_config "ARG-Thunkpad" ;;
-        3) run_alejandra ;;
+        3) test_config "ARG-Toaster" ;;
+        4) test_config "ARG-Thunkpad" ;;
+        5) run_alejandra ;;
         q|Q) echo ""; exit 0 ;;
         *) echo -e "\n  ${RED}Invalid option.${RESET}" ;;
     esac
